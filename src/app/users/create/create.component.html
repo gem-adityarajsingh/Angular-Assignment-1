@@ -1,0 +1,239 @@
+<div class="createUser text-left bg-white rounded shadow py-3 formGroup">
+  <form [formGroup]="createUserForm" (ngSubmit)="submit()">
+    <h1 style="color: cornflowerblue">Create User</h1>
+    <br />
+    <!--Name-->
+    <label for="name" class="label">
+      Name<small style="color: red">*</small>
+    </label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      aria-describedby="nameHelp"
+      placeholder="Enter Name"
+      formControlName="name"
+      ngModel
+      required
+    />
+    <span
+          *ngIf="createUserForm.controls['name'].invalid &&
+              createUserForm.controls['name'].touched"
+          class="alert text-danger"
+        >
+          Please enter Name
+        </span>
+    <!--Gender-->
+    <br />
+    <label for="gender" class="label"
+      >Gender<small style="color: red">*</small></label
+    ><br />
+    <input type="radio" value="Male" required formControlName="gender" />&nbsp;
+    <label for="male"> Male</label><br />
+    <input
+      type="radio"
+      value="Female"
+      required
+      formControlName="gender"
+    />&nbsp;
+    <label for="male"> Female</label>
+    <span
+          *ngIf="createUserForm.controls['mobileNumber'].invalid &&
+              createUserForm.controls['mobileNumber'].touched"
+          class="alert text-danger"
+        >
+          Please choose your Gender
+        </span>
+    <br /><br />
+    <!--Email-->
+    <label for="email" class="label"
+      >Email<small style="color: red">*</small></label
+    >
+    <input
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Enter email"
+      formControlName="email"
+      name="email"
+      required
+    />
+    <span
+          *ngIf="createUserForm.controls['email'].invalid &&
+              createUserForm.controls['email'].touched"
+          class="alert text-danger"
+        >
+          Please enter correct Email
+        </span>
+    <br />
+    <!--Mobile Number-->
+    <label for="mobileNumber" class="label"
+      >Mobile Number<small style="color: red">*</small></label
+    ><br />
+    <input
+      type="tel"
+      placeholder="Enter Mobile Number"
+      class="form-control"
+      formControlName="mobileNumber"
+      name="mobile"
+      required
+    />
+    <span
+          *ngIf="createUserForm.controls['mobileNumber'].invalid &&
+              createUserForm.controls['mobileNumber'].touched"
+          class="alert text-danger"
+        >
+          Please enter correct Mobile Number
+        </span>
+
+    <br />
+    <!--Category-->
+    <div class="form-group row">
+      <label for="Category" class="label"
+        >Category<small style="color: red">*</small></label
+      >
+      <div class="col-sm-10">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="category"
+        >
+          <option selected name="category">General</option>
+          <option value="SC/ST" name="category">SC/ST</option>
+          <option value="OBC" name="category">OBC</option>
+        </select>
+        <span
+          *ngIf="createUserForm.controls['category'].invalid &&
+              createUserForm.controls['category'].touched"
+          class="alert text-danger"
+        >
+          Please select your category
+        </span>
+      </div>
+    </div>
+    <br />
+
+    <label for="tech" class="label"
+      >Technology<small style="color: red">*</small></label
+    >
+    <br />
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="C"
+        formControlName="C"
+      />
+      <label class="form-check-label" for="flexCheckDefault">C</label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="C++"
+        formControlName="Cpp"
+      />
+      <label class="form-check-label" for="flexCheckDefault">C++</label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="Java"
+        formControlName="Java"
+      />
+      <label class="form-check-label" for="flexCheckDefault">Java</label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="Python"
+        formControlName="Python"
+      />
+      <label class="form-check-label" for="flexCheckDefault">Python</label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="JavaScript"
+        formControlName="JavaScript"
+      />
+      <label class="form-check-label" for="flexCheckDefault">JavaScript</label>
+    </div>
+    <br />
+
+    <!--Profile Picture-->
+    <label for="Profile Picture" class="label"
+      >Profile Picture(.jpg, .jpeg, .png only)</label
+    ><br />
+    <input
+      type="file"
+      class="form-control"
+      id="profilePicture"
+      formControlName="profilePicture"
+      (change)="onSelectNewFile($event.target?.files)"
+    />
+    <span
+          *ngIf="createUserForm.controls['profilePicture'].invalid &&
+              createUserForm.controls['profilePicture'].touched"
+          class="alert text-danger"
+        >
+          Please upload only .jpg, .jpeg, .png files
+        </span>
+    <br /><br />
+
+    <!--Preview button-->
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!createUserForm.valid"
+      (click)="openPopup()"
+    >
+      Preview
+    </button>
+  </form>
+</div>
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-class modal-body">
+        <img [src]="imageUrl" alt="Image Review" height="30%" width="50%" />
+        <ul class="list-group">
+          <strong>Name</strong>
+          <li class="list-group-item">{{ users.name }}</li>
+          <strong>Gender</strong>
+          <li class="list-group-item">{{ users.gender }}</li>
+          <strong>Email</strong>
+          <li class="list-group-item">{{ users.email }}</li>
+          <strong>Mobile</strong>
+          <li class="list-group-item">{{ users.mobileNumber }}</li>
+          <strong>Category</strong>
+          <li class="list-group-item">{{ users.category }}</li>
+          <strong>Technology</strong>
+          <li class="list-group-item">{{ users.technology }}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="saveData()">
+          Submit
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<table class="table rounded shadow">
+  <tr>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th>Mobile Number</th>
+    <th>Category</th>
+    <th>Technology</th>
+    <th>Profile Picture</th>
+  </tr>
+
+  <!--<div class="data-item" *ngFor="let item of userData">-->
+  <tr class="data" *ngFor="let item of userData">
+    <td>{{ item.name }}</td>
+    <td>{{ item.gender }}</td>
+    <td>{{ item.email }}</td>
+    <td>{{ item.mobileNumber }}</td>
+    <td>{{ item.category }}</td>
+    <td>{{ item.technology }}</td>
+    <td>
+      <img
+        [src]="item.profilePicture"
+        alt="Image Review"
+        height="100"
+        width="100"
+      />
+    </td>
+  </tr>
+  <!--</div>-->
+</table>
